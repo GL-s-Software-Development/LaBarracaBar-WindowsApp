@@ -101,7 +101,7 @@ namespace LaBarracaBar.ViewModels
         }        
         private void ExecuteShowV_HomeCommand(object obj)
         {
-            CurrentChildView = new HomeViewModel();
+            CurrentChildView = new NewsViewModel();
             Caption = "Novedades";
             Icon = IconChar.Home;
         }

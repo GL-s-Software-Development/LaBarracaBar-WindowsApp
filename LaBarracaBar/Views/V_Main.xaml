@@ -21,8 +21,8 @@
 
     <Window.Resources>
 
-        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-            <local:V_Home/>
+        <DataTemplate DataType="{x:Type viewModel:NewsViewModel}">
+            <local:V_News/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ManageProductViewModel}">
             <localSecundary:V_ManageProduct />

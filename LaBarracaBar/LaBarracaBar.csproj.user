@@ -28,6 +28,9 @@
     <Compile Update="Views\Secundary\V_ManageTable.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\V_News.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\V_SalesAnalysis.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
