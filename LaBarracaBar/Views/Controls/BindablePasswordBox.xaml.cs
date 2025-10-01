@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LaBarracaBar.CustomControls
+namespace LaBarracaBar.Views.Controls
 {
     /// <summary>
     /// Lógica de interacción para BindablePasswordBox.xaml

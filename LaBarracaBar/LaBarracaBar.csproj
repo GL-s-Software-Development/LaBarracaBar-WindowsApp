@@ -2,11 +2,27 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
+    <UseWPF>True</UseWPF>
     <ApplicationIcon>bar.ico</ApplicationIcon>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <UseWindowsForms>False</UseWindowsForms>
+    <Company>GL's Software Development</Company>
+    <Product>La Barraca Bar</Product>
+    <Copyright>© Copyright 2023 GL'S Software Development</Copyright>
+    <PackageIcon>logo-bar.png</PackageIcon>
+    <NeutralLanguage>es-AR</NeutralLanguage>
+    <NuGetAuditMode>all</NuGetAuditMode>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,8 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.2.0" />
   </ItemGroup>
 
@@ -27,6 +45,37 @@
     <Resource Include="Resources\Images\image-back.jpg" />
     <Resource Include="Resources\Images\logo-menu.png" />
     <Resource Include="Resources\Images\user-login.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\Images\logo-bar.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

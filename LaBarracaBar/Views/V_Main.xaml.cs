@@ -1,4 +1,6 @@
-﻿using LaBarracaBar.Views.Controls;
+﻿using LaBarracaBar.Services;
+using LaBarracaBar.ViewModels;
+using LaBarracaBar.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +27,16 @@ namespace LaBarracaBar.Views
         public V_Main()
         {
             InitializeComponent();
+            Loaded += (s, e) =>
+            {
+                NotificationService.Show("Sesión Iniciada", "Bienvenido Luis Nicolás", Notifications.Wpf.NotificationType.Information);
+            };
         }
 
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hand, int wMsg, int wParam, int lParam);
+        
+
 
         private void pnlControlbar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -56,6 +64,33 @@ namespace LaBarracaBar.Views
         private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+        private void UserMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserMenuPopup.IsOpen = !UserMenuPopup.IsOpen;
+        }
+        private void UserMenuPopup_Closed(object sender, EventArgs e)
+        {
+            if (DataContext is MainViewModel vm)
+            {
+                vm.IsUserMenuVisible = false;
+            }
+        }
+
+        private void OnEditProfile(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnChangePassword(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Cambiar contraseña aún no implementado.");
+        }
+
+        private void OnLogout(object sender, RoutedEventArgs e)
+        {
+            // Confirmación, limpieza de sesión, cierre app, etc.
+            MessageBox.Show("Cerrando sesión...");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LaBarracaBar.Models;
 using LaBarracaBar.Repositories;
+using LaBarracaBar.Services;
 using LaBarracaBar.Views.Controls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using static LaBarracaBar.Views.Controls.ToastNotification;
 
 namespace LaBarracaBar.Views.Dialogs
@@ -62,7 +64,7 @@ namespace LaBarracaBar.Views.Dialogs
             InitializeComponent();
             DataContext = this;
 
-            TableTitle = $"Editar Mesa #{tableNumber}";
+            TableTitle = $"Mesa #{tableNumber}";
 
             var repo = new ProductRepository();
             var allProducts = repo.GetByProduct("");
@@ -87,10 +89,12 @@ namespace LaBarracaBar.Views.Dialogs
         {
             if (ResultProducts.Count == 0)
             {
-                Toast.Show("Debe ingresar al menos un producto con cantidad mayor a 0.", ToastNotification.ToastType.Error);
+                //Toast.Show("Debe ingresar al menos un producto con cantidad mayor a 0.", ToastNotification.ToastType.Error);
+                NotificationService.Show(""+TableTitle+"", "Debe ingresar al menos un producto con cantidad mayor a 0.", Notifications.Wpf.NotificationType.Information);
                 return;
             }
-            Toast.Show("Cambios guardados correctamente", ToastNotification.ToastType.Success);
+            //Toast.Show("Cambios guardados correctamente", ToastNotification.ToastType.Success);
+            NotificationService.Show(""+TableTitle+"", "Mesa editada con éxito.", Notifications.Wpf.NotificationType.Success);
             await Task.Delay(1000);
 
             DialogResult = true;

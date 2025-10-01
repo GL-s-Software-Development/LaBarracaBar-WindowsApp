@@ -82,5 +82,19 @@ namespace LaBarracaBar.Repositories
 
             return list;
         }
+        public decimal GetTotalRevenueForDay(DateTime day)
+        {
+            using (var connection = GetConnection())
+            using (var command = new MySqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT SUM(total) FROM sales WHERE DATE(date) = @day";
+                command.Parameters.AddWithValue("@day", day.Date);
+
+                var result = command.ExecuteScalar();
+                return result != DBNull.Value ? Convert.ToDecimal(result) : 0m;
+            }
+        }
     }
 }

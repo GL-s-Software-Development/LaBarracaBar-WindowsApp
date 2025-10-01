@@ -1,5 +1,6 @@
 ﻿using LaBarracaBar.Models;
 using LaBarracaBar.Repositories;
+using LaBarracaBar.Services;
 using LaBarracaBar.Views.Controls;
 using LaBarracaBar.Views.Dialogs;
 using System.Collections.Generic;
@@ -62,7 +63,6 @@ namespace LaBarracaBar.ViewModels
                 // Actualizar en la base de datos
                 var repo = new TemporaryTableRepository();
                 repo.UpdateTable(TableId, dialog.ResultProducts);
-                ToastAction?.Invoke("Mesa editada con éxito", "success");
                 await Task.Delay(500);
             }
         }
@@ -71,8 +71,8 @@ namespace LaBarracaBar.ViewModels
             var repo = new TemporaryTableRepository();
             repo.DeleteTable(TableNumber.Replace("Mesa #", ""));
 
-            //ToastNotification.ShowStatic($"{TableNumber} eliminada", ToastType.Info);
-            ToastActions?.Invoke($"{TableNumber} eliminada", ToastNotification.ToastType.Info);
+            NotificationService.Show(TableNumber,"Se eliminó correctamente.", Notifications.Wpf.NotificationType.Information);
+
 
             await Task.Delay(1500);
 
@@ -99,7 +99,6 @@ namespace LaBarracaBar.ViewModels
             var chargeDialog = new ChargeTableDialog(TableNumber.Replace("Mesa #", ""), fullProducts);
             if (chargeDialog.ShowDialog() == true)
             {
-                ToastNotification.ShowStatic("Mesa facturada correctamente", ToastNotification.ToastType.Success);
                 OnDeleteRequested?.Invoke(this); // ✅ Notifica al contenedor que debe eliminar esta instancia
             }
             

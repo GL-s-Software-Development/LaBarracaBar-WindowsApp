@@ -12,15 +12,25 @@ namespace LaBarracaBar
     {
         protected void ApplicationStart(object sender, StartupEventArgs e)
         {
-            var loginVew = new V_Login();
+            ShowLogin();
+        }
 
-            loginVew.IsVisibleChanged += (s, ev) =>
+        private void ShowLogin()
+        {
+            var loginView = new V_Login();
+            loginView.Show();
+
+            loginView.IsVisibleChanged += (s, ev) =>
             {
-                if (loginVew.IsVisible == false && loginVew.IsLoaded)
+                if (loginView.IsVisible == false && loginView.IsLoaded)
                 {
                     var mainView = new V_Main();
                     mainView.Show();
-                    loginVew.Close();
+                    loginView.Close();
+                    mainView.Closed += (s2, ev2) =>
+                    {
+                        ShowLogin();
+                    };
                 }
             };
         }

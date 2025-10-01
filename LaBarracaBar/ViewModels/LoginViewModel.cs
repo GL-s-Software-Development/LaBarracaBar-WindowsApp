@@ -1,4 +1,6 @@
 ﻿using LaBarracaBar.Models;
+using LaBarracaBar.Repositories;
+using LaBarracaBar.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +10,9 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Notifications.Wpf;
+using System.Windows;
 using System.Windows.Input;
-using LaBarracaBar.Repositories;
 
 namespace LaBarracaBar.ViewModels
 {
@@ -85,6 +88,7 @@ namespace LaBarracaBar.ViewModels
         public ICommand RecoverPasswordCommand { get; }
         public ICommand ShowPasswordCommand { get; }
         public ICommand RememberPasswordCommand { get; }
+        public ICommand RegisterCommand {  get; }
 
         //Constructor
         public LoginViewModel()
@@ -92,13 +96,18 @@ namespace LaBarracaBar.ViewModels
             
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
+            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand());
+            RegisterCommand = new ViewModelCommand(p => ExecuteRegisterCommand());
             
         }
 
-        private void ExecuteRecoverPassCommand(string username, string mail)
+        private void ExecuteRegisterCommand()
         {
-            throw new NotImplementedException();
+            NotificationService.Show("Acción no disponible", "Registrarse aún no implementado.", Notifications.Wpf.NotificationType.Warning);
+        }
+        private void ExecuteRecoverPassCommand()
+        {
+            NotificationService.Show("Acción no disponible", "Recuperar contraseña aún no implementado.", Notifications.Wpf.NotificationType.Warning);
         }
 
         private bool CanExecuteLoginCommand(object obj)
@@ -113,16 +122,22 @@ namespace LaBarracaBar.ViewModels
 
         private void ExecuteLoginCommand(object obj)
         {
-            var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
-            if (isValidUser)
+            try
             {
-                Thread.CurrentPrincipal = new GenericPrincipal(
-                    new GenericIdentity(Username), null);
-                IsViewVisible = false;
+                var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
+                if (isValidUser)
+                {
+                    Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null);
+                    IsViewVisible = false;
+                }
+                else
+                {
+                    ErrorMessage = "* Nombre de usuario o contraseña no válidos";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ErrorMessage = "* Nombre de usuario o contraseña no válidos";
+                NotificationService.Show("ERROR AL INICIAR SESIÓN", ex.Message, Notifications.Wpf.NotificationType.Error);
             }
         }
     }

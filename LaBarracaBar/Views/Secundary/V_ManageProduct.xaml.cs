@@ -26,17 +26,6 @@ namespace LaBarracaBar.Views.Secundary
         public V_ManageProduct()
         {
             InitializeComponent();
-            if (DataContext is ProductViewModel vm)
-                vm.ToastAction = ShowToast;
-        }
-
-        public void ShowToast(string message, string type = "info")
-        {
-            var toastType = ToastNotification.ToastType.Info;
-            if (type == "success") toastType = ToastNotification.ToastType.Success;
-            else if (type == "error") toastType = ToastNotification.ToastType.Error;
-
-            Toast.Show(message, toastType);
         }
 
     }

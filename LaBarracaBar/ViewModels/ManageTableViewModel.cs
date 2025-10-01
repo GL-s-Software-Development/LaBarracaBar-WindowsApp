@@ -34,7 +34,6 @@ namespace LaBarracaBar.ViewModels
                     DataContext = vm
                 };
 
-                vm.ToastActions = view.ShowLocalToast;
                 vm.OnDeleteRequested += _ => RemoveTableView(view);
                 Tables.Add(view);
             }
@@ -53,8 +52,6 @@ namespace LaBarracaBar.ViewModels
                 {
                     DataContext = vm
                 };
-
-                vm.ToastActions = view.ShowLocalToast;
                 vm.OnDeleteRequested += _ => RemoveTableView(view);
                 Tables.Add(view);
             }

@@ -9,7 +9,7 @@
         xmlns:controls="clr-namespace:LaBarracaBar.Views.Controls"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        Title="LA QUIMERA S.A" Height="700" Width="1300"
+        Title="LA BARRACA BAR" Height="700" Width="1300"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
@@ -21,9 +21,6 @@
 
     <Window.Resources>
 
-        <DataTemplate DataType="{x:Type viewModel:NewsViewModel}">
-            <local:V_News/>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ManageProductViewModel}">
             <localSecundary:V_ManageProduct />
         </DataTemplate>
@@ -33,6 +30,70 @@
         <DataTemplate DataType="{x:Type viewModel:SalesAnalysisViewModel}">
             <local:V_SalesAnalysis/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:V_Home/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NewsViewModel}">
+            <local:V_News/>
+        </DataTemplate>
+
+        <ContextMenu x:Key="UserDropdownMenu" x:Shared="False"
+             Background="#2E2E2E"
+             BorderBrush="#FF4F00"
+             BorderThickness="1"
+             Padding="6"
+             HasDropShadow="True">
+            <ContextMenu.Resources>
+                <!-- Estilo de ítems -->
+                <Style TargetType="MenuItem">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontFamily" Value="Montserrat"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Padding" Value="8,4"/>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="MenuItem">
+                                <Border Background="{TemplateBinding Background}" 
+                        CornerRadius="5"
+                        Padding="{TemplateBinding Padding}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Icono FontAwesome -->
+                                        <fa:IconImage Icon="{Binding Tag, RelativeSource={RelativeSource AncestorType=MenuItem}}"
+                                      Foreground="White"
+                                      Width="18"
+                                      Height="18"
+                                      Margin="0,0,8,0"
+                                      VerticalAlignment="Center"/>
+
+                                        <!-- Texto del menú -->
+                                        <ContentPresenter Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF4F00"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ContextMenu.Resources>
+
+            <!-- Menú con íconos FontAwesome -->
+            <MenuItem Header="Editar Perfil" Tag="User" Click="OnEditProfile"/>
+            <MenuItem Header="Cambiar Contraseña" Tag="Lock" Click="OnChangePassword"/>
+            <MenuItem Header="Cerrar Sesión" Tag="RightFromBracket" Click="OnLogout"/>
+        </ContextMenu>
 
     </Window.Resources>
 
@@ -44,7 +105,7 @@
             </LinearGradientBrush>
         </Border.BorderBrush>
 
-        <Grid>
+        <Grid x:Name="RootGrid">
             <Grid.ColumnDefinitions>
                 <!--Navigation menu-->
                 <ColumnDefinition Width="224.5"/>
@@ -169,6 +230,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
+
                         <!--Caption-->
                         <StackPanel Grid.Column="0"
                                     Orientation="Horizontal"
@@ -192,13 +254,27 @@
                                     FlowDirection="RightToLeft"
                                     VerticalAlignment="Center"
                                     Margin="0,0,10,0">
-
-                            <Button Style="{StaticResource iconButton}"
+                            <Grid>
+                                <Button 
+                                    x:Name="UserMenuButton"
+                                    Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color1}"
-                                    Height="20" 
-                                    Width="30">
-                                <fa:IconImage Icon="AngleDown" Style="{StaticResource iconButtonIcon}"/>
-                            </Button>
+                                    Height="20"
+                                    Width="30"
+                                    Command="{Binding ToggleUserMenuCommand}"
+                                    Click="UserMenuButton_Click">
+                                    <fa:IconImage Icon="{Binding UserMenuIcon}" Style="{StaticResource iconButtonIcon}" />
+                                </Button>
+
+                                <Popup x:Name="UserMenuPopup"
+                                       Placement="Bottom"
+                                       PlacementTarget="{Binding ElementName=UserMenuButton}"
+                                       StaysOpen="False"
+                                       AllowsTransparency="True"
+                                       Closed="UserMenuPopup_Closed">
+                                    <controls:UserMenuView/>
+                                </Popup>
+                            </Grid>
 
                             <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
                                        Foreground="{StaticResource tittleColor3}"
@@ -213,14 +289,16 @@
                                     <ImageBrush ImageSource="/Resources/Images/logo.png"/>
                                 </Ellipse.Fill>
                             </Ellipse>
-
-                            <Button Style="{StaticResource iconButton}"
-                                    Tag="{StaticResource color1}"
-                                    Height="20"
-                                    Width="30">
+                            <Button
+                                x:Name="ButtonUpdates"
+                                Style="{StaticResource iconButton}"
+                                Tag="{StaticResource color1}"
+                                Height="20"
+                                Width="30"
+                                Command="{Binding ShowV_UpdateCommand}">
                                 <fa:IconImage Icon="Clock" Style="{StaticResource iconButtonIcon}"/>
                             </Button>
-                            <Button Style="{StaticResource iconButton}"
+                            <!--<Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color1}"
                                     Height="20"
                                     Width="30">
@@ -231,7 +309,7 @@
                                     Height="20"
                                     Width="30">
                                 <fa:IconImage Icon="Bell" Style="{StaticResource iconButtonIcon}"/>
-                            </Button>
+                            </Button>-->
                         </StackPanel>
                     </Grid>
 
@@ -241,7 +319,6 @@
                                     Margin="25"/>
                 </Grid>
             </Border>
-
         </Grid>
     </Border>
 

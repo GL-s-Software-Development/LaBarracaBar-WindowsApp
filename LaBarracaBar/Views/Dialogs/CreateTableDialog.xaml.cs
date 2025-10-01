@@ -1,5 +1,6 @@
 ﻿using LaBarracaBar.Models;
 using LaBarracaBar.Repositories;
+using LaBarracaBar.Services;
 using LaBarracaBar.Views.Controls;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -73,10 +74,11 @@ namespace LaBarracaBar.Views.Dialogs
         {
             if (string.IsNullOrWhiteSpace(TableNumber) || SelectedProducts.Count == 0)
             {
-                Toast.Show("Debe ingresar el número de mesa y al menos un producto.", ToastNotification.ToastType.Error);
+                NotificationService.Show("Upss", "Debe ingresar el número de mesa y al menos un producto.", Notifications.Wpf.NotificationType.Error);
                 return;
             }
-            Toast.Show("Mesa creada con éxito", ToastNotification.ToastType.Success);
+            NotificationService.Show("Mesa #"+TableNumber+"", "Ha sido creada correctamente.", Notifications.Wpf.NotificationType.Success);
+
             DialogResult = true;
         }
 

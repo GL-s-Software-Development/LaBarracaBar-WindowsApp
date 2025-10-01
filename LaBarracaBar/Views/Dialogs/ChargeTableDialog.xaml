@@ -17,18 +17,11 @@
         </Grid.RowDefinitions>
 
         <!-- Título -->
-        <TextBlock Text="{Binding TableNumber}"
+            <TextBlock Text="{Binding TableNumber}"
                    FontSize="20"
                    FontWeight="Bold"
                    Foreground="White"
                    Margin="0 0 0 10"/>
-            <!-- Toast -->
-            <controls:ToastNotification x:Name="Toast"
-                                        Width="260"
-                                        HorizontalAlignment="Left"
-                                        Margin="70,5,0,5"
-                                        Visibility="Collapsed"
-                                        Grid.Row="0"/>
             <!-- Detalle de productos -->
         <DataGrid Grid.Row="1"
                   ItemsSource="{Binding Products}"

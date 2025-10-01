@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:LaBarracaBar.ViewModels"
-        xmlns:customControls="clr-namespace:LaBarracaBar.CustomControls"
+        xmlns:Controls="clr-namespace:LaBarracaBar.Views.Controls"
         mc:Ignorable="d"
         Title="Iniciar sesión" Height="530" Width="600"
         WindowStyle="None"
@@ -158,13 +158,13 @@
                            FontWeight="Medium" 
                            FontFamily="Montserrat" 
                            Margin="0,5,0,0"/>
-                    <customControls:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <Controls:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="28"
                                                     Margin="0,5,0,0">
-                        <customControls:BindablePasswordBox.InputBindings>
+                        <Controls:BindablePasswordBox.InputBindings>
                             <KeyBinding Key="Enter" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=btnLogin}" />
-                        </customControls:BindablePasswordBox.InputBindings>
-                    </customControls:BindablePasswordBox>
+                        </Controls:BindablePasswordBox.InputBindings>
+                    </Controls:BindablePasswordBox>
                     <TextBlock Text="{Binding ErrorMessage}" 
                            Foreground="Crimson" 
                            FontSize="15" 
@@ -181,8 +181,7 @@
                         FontFamily="Montserrat"
                         Cursor="Hand"
                         Grid.Column="2"
-                        Margin="0,30,0,0"
-                        Click="btnLogin_Click">
+                        Margin="0,30,0,0">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Background" Value="{StaticResource ButtonBackColor6}"/>
@@ -211,7 +210,12 @@
                            FontFamily="Montserrat"
                            Cursor="Hand"
                            Margin="0,15,0,0"
-                           TextAlignment="Center"/>
+                           TextAlignment="Center">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Gesture="LeftClick"
+                                          Command="{Binding RecoverPasswordCommand}" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
                     <TextBlock Text="Registrarse"
                            Foreground="White"
                            FontSize="12"
@@ -219,7 +223,12 @@
                            FontFamily="Montserrat"
                            Cursor="Hand"
                            Margin="0,3,0,0"
-                           TextAlignment="Center"/>
+                           TextAlignment="Center">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Gesture="LeftClick"
+                                          Command="{Binding RegisterCommand}" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
 
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Left" Foreground="White" Margin="12,479,0,0" Grid.Row="1" FontSize="9" TextWrapping="Wrap" Text="© Copyright 2023 GL'S Software Development" FontWeight="Medium" FontFamily="Montserrat" VerticalAlignment="Top"/>

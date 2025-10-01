@@ -1,10 +1,11 @@
 ﻿using LaBarracaBar.Models;
 using LaBarracaBar.Repositories;
+using LaBarracaBar.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using System.Windows;
+using System.Windows.Input;
 
 namespace LaBarracaBar.ViewModels
 {
@@ -77,12 +78,12 @@ namespace LaBarracaBar.ViewModels
                 LoadProducts();
                 SelectedProduct = new ProductModel();
                 OnPropertyChanged(nameof(SelectedProduct));
-                ToastAction?.Invoke("Producto agregado con éxito.", "success");
-            
+                NotificationService.Show("Inventario Actualizado", "Producto agregado con éxito.", Notifications.Wpf.NotificationType.Success);
+
             }
             catch
             {
-                ToastAction?.Invoke("Error al agregar el producto.", "error");
+                NotificationService.Show("Upss", "Error al agregar el producto.", Notifications.Wpf.NotificationType.Error);
             }
         }
 
@@ -94,12 +95,12 @@ namespace LaBarracaBar.ViewModels
                 LoadProducts();
                 SelectedProduct = new ProductModel();
                 OnPropertyChanged(nameof(SelectedProduct));
-                ToastAction?.Invoke("Producto editado con éxito.", "success");
-              
+                NotificationService.Show("Inventario Actualizado", "Producto editado con éxito.", Notifications.Wpf.NotificationType.Success);
+
             }
             catch
             {
-                ToastAction?.Invoke("Error al editar el producto.", "error");
+                NotificationService.Show("Upss", "Error al editar el producto.", Notifications.Wpf.NotificationType.Error);
             }
         }
 
@@ -111,11 +112,11 @@ namespace LaBarracaBar.ViewModels
                 LoadProducts();
                 SelectedProduct = new ProductModel();
                 OnPropertyChanged(nameof(SelectedProduct));
-                ToastAction?.Invoke("Producto eliminado con éxito.", "success");
+                NotificationService.Show("Inventario Actualizado", "Producto eliminado con éxito.", Notifications.Wpf.NotificationType.Success);
             }
             catch
             {
-                ToastAction?.Invoke("Error al eliminar el producto.", "error");
+                NotificationService.Show("Upss", "Error al eliminar el producto.", Notifications.Wpf.NotificationType.Error);
             }
         }
 

@@ -1,16 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup />
+  <PropertyGroup>
+    <_LastSelectedProfileId>D:\02.Desarrollo de Proyectos\01.C# .Net Core\La Barraca Bar - Windows\LaBarracaBar\Properties\PublishProfiles\ClickOnceProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
   <ItemGroup>
     <ApplicationDefinition Update="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\Controls\ConfirmNotification.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Controls\ModernNotification.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Controls\Table.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Controls\ToastNotification.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Controls\UserMenuView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Dialogs\ChargeTableDialog.xaml.cs">
@@ -36,7 +47,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="CustomControls\BindablePasswordBox.xaml">
+    <Page Update="Views\Controls\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Styles\ButtonStyles.xaml">

@@ -127,5 +127,16 @@ namespace LaBarracaBar.Repositories
             cmd.Parameters.AddWithValue("@number", tableNumber);
             cmd.ExecuteNonQuery();
         }
+        public int GetTableCount()
+        {
+            using (var connection = GetConnection())
+            using (var command = new MySqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT COUNT(*) FROM temp_tables";
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+        }
     }
 }

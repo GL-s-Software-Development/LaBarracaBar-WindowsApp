@@ -57,19 +57,19 @@ namespace LaBarracaBar.Views.Dialogs
                 new TemporaryTableRepository().DeleteTable(TableNumber);
 
                 // 4. Confirmar
-                Toast.Show("Venta facturada correctamente", ToastType.Success);
+                NotificationService.Show("Mesa #"+TableNumber+" Facturada","Ha sido facturada correctamente.", Notifications.Wpf.NotificationType.Success);
                 await Task.Delay(1000);
                 DialogResult = true;
             }
             catch (Exception ex)
             {
-                Toast.Show("Error al facturar: " + ex.Message, ToastType.Error);
+                NotificationService.Show("Error al facturar", "Error interno: ["+ex.Message+"].", Notifications.Wpf.NotificationType.Error);
             }
         }
 
         private async void OnCancel(object sender, RoutedEventArgs e)
         {
-            Toast.Show("Cobro cancelado", ToastType.Info);
+            NotificationService.Show("Mesa #"+TableNumber+"", "Cobro cancelado.", Notifications.Wpf.NotificationType.Information);
             await Task.Delay(1200);
             DialogResult = false;
             Close();

@@ -24,7 +24,27 @@
                 <DatePicker SelectedDate="{Binding StartDate}" Width="130"/>
                 <TextBlock Text="Hasta:" Foreground="White" VerticalAlignment="Center" Margin="10 0 5 0"/>
                 <DatePicker SelectedDate="{Binding EndDate}" Width="130"/>
-                <Button Content="Filtrar" Command="{Binding FilterCommand}" Margin="10 0" Padding="10 5" Background="#FF8C00" Foreground="White"/>
+                <Button Content="Filtrar" Command="{Binding FilterCommand}" Margin="10 0" Padding="10 5" Background="#FF8C00" Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource ButtonBackColor6}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource ButtonBackColor5}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="70" Height="25"
+            CornerRadius="9"
+            Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StackPanel>
 
             <!-- Resumen -->
