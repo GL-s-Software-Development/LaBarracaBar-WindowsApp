@@ -89,8 +89,9 @@ Todos los mensajes del sistema se realizan mediante **Notificaciones visuales an
 
 1. Configurar una base de datos MySQL con el esquema proporcionado.
 2. Modificar la cadena de conexión en `BaseRepository.cs`.
-3. Ejecutar el proyecto en Visual Studio.
-4. Verificar la conexión a la impresora térmica IT1050 (si se desea facturación real).
+3. Importar script de la base de datos `La Barraca Bar - Schema.sql`.
+4. Ejecutar el proyecto en Visual Studio.
+5. Verificar la conexión a la impresora térmica IT1050 (si se desea facturación real).
 
 ---
 
